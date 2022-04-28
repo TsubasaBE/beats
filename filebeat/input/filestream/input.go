@@ -217,7 +217,7 @@ func (inp *filestream) open(log *logp.Logger, canceler input.Canceler, fs fileSo
 		return nil, err
 	}
 
-	r = readfile.NewStripNewline(r, inp.readerConfig.LineTerminator)
+	// r = readfile.NewStripNewline(r, inp.readerConfig.LineTerminator)
 
 	r = readfile.NewFilemeta(r, fs.newPath, offset)
 
@@ -326,7 +326,8 @@ func (inp *filestream) readFromSource(
 
 		s.Offset += int64(message.Bytes)
 
-		if message.IsEmpty() || inp.isDroppedLine(log, string(message.Content)) {
+		// if message.IsEmpty() || inp.isDroppedLine(log, string(message.Content)) {
+		if inp.isDroppedLine(log, string(message.Content)) {
 			continue
 		}
 
